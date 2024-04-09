@@ -2,7 +2,10 @@ interface MovieWithFilters {
   name?: string;
   id?: string;
   year?: number;
-  poster?: string;
+  poster?: {
+    url: string;
+    previewUrl: string;
+  };
   genres?: {
     name: string;
   };

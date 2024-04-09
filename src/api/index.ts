@@ -30,7 +30,7 @@ export async function getMovieBySearch(params: GetMovieByNameProps): Promise<Mov
 }
 
 export async function getMovieWithFilters(
-  params: GetMovieWithFilters
+  params?: GetMovieWithFilters
 ): Promise<MovieWithFilters[] | null> {
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
   try {
