@@ -12,7 +12,7 @@ type SelectValues = {
   label: string | number;
 };
 
-const SelectForm = ({
+const Filter = ({
   countryOptions,
 }: {
   countryOptions: FieldValue[] | null;
@@ -65,4 +65,4 @@ const SelectForm = ({
   );
 };
 
-export default SelectForm;
+export default Filter;
