@@ -1,4 +1,4 @@
-export const moviesMock = [
+export const moviesMock: MovieWithFilters[] = [
   {
     id: 4635111,
     name: "Внутри убийцы",
