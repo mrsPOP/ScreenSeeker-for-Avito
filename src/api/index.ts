@@ -42,7 +42,7 @@ export async function getMovieWithFilters(
   }
 }
 
-export async function getFieldValues(params: GetFieldValues) {
+export async function getFieldValues(params: GetFieldValues = { field: "countries.name" }): Promise<FieldValue[] | null> {
   try {
     const response = await instance.get("v1/movie/possible-values-by-field", {
       params,

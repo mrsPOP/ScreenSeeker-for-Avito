@@ -100,3 +100,8 @@ interface ReleaseYear {
   start: number
   end: number
 }
+
+interface FieldValue {
+  name: string;
+  slug: string;
+}

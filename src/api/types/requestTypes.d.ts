@@ -22,5 +22,5 @@ type GetMovieWithFilters = {
 };
 
 type GetFieldValues = {
-  field?: "countries.name" | "genres.name" | "ageRating";
+  field: "countries.name";
 };
