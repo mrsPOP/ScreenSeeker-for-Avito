@@ -1,6 +1,6 @@
 interface MovieWithFilters {
   name?: string;
-  id?: string;
+  id?: number;
   year?: number;
   poster?: {
     url: string;

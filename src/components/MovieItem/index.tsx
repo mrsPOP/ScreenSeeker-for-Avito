@@ -1,7 +1,7 @@
 import { Card } from "antd";
 
 type Props = {
-  id?: string;
+  id?: number;
   name?: string;
   poster?: {
     url: string;
