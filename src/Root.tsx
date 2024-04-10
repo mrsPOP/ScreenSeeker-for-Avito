@@ -1,8 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import "./Root.css";
 import { getFieldValues as getCountries, getMovieWithFilters } from "./api";
-import SelectForm from "./components/Filter";
+import Filter from "./components/Filter";
 import MovieList from "./components/MovieList";
+import { moviesMock } from "./mocks/movies";
 
 export async function loader() {
   const [movies, countries] = await Promise.all([
@@ -21,8 +22,8 @@ function Root() {
 
   return (
     <div className="root">
-      <SelectForm countryOptions={countries} />
-      {movies && <MovieList movies={movies} />}
+      <Filter countryOptions={countries} />
+      <MovieList movies={movies} />
     </div>
   );
 }
