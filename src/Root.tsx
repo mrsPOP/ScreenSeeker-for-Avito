@@ -1,14 +1,17 @@
-import { useLoaderData } from "react-router-dom";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import "./Root.css";
 import { getFieldValues as getCountries, getMovieWithFilters } from "./api";
 import Filter from "./components/Filter";
 import MovieList from "./components/MovieList";
-import { moviesMock } from "./mocks/movies";
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
+  const params = new URL(request.url).searchParams;
   const [movies, countries] = await Promise.all([
     getMovieWithFilters({
-      selectFields: ["id", "year", "name", "poster"],
+      selectFields: ["id", "year", "name", "poster", "countries"],
+      year: params.getAll("year"),
+      ageRating: params.getAll("ageRating"),
+      "countries.name": params.getAll("countries.name"),
     }),
     getCountries(),
   ]);
