@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import MoviePage, { loader as movieLoader } from "./pages/MoviePage";
 import Root, { loader } from "./Root";
 
 const root = ReactDOM.createRoot(
@@ -13,13 +14,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     loader: loader,
-    // children: [
-    //   {
-    //     path: "",
-    //     element: <MoviePage />,
-    //     loader: movieLoader,
-    //   },
-    // ],
+  },
+  {
+    path: "movie/:id",
+    element: <MoviePage />,
+    loader: movieLoader,
   },
 ]);
 
