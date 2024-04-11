@@ -12,13 +12,13 @@ type GetMovieWithFilters = {
     | "id"
     | "year"
     | "poster"
-    | "genres.name"
+    | "countries"
     | "ageRating"
   )[];
   year?: string[];
   poster?: string[];
   ageRating?: string[];
-  ["genres.name"]?: string;
+  "countries.name"?: string[];
 };
 
 type GetFieldValues = {

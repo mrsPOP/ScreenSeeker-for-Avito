@@ -7,7 +7,7 @@ const instance = axios.create({
   headers: { "X-API-KEY": process.env.REACT_APP_TOKEN },
 });
 
-export async function getMovieById(id: number): Promise<Movie | null> {
+export async function getMovieById(id: string): Promise<Movie | null> {
   try {
     const response = await instance.get(`v1.4/movie/${id}`);
     return response.data;
@@ -31,11 +31,11 @@ export async function getMovieBySearch(params: GetMovieByNameProps): Promise<Mov
 
 export async function getMovieWithFilters(
   params?: GetMovieWithFilters
-): Promise<MovieWithFilters[] | null> {
+) {
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
   try {
     const response = await instance.get(`v1.4/movie?${serializedParams}`);
-    return response.data.docs;
+    return response.data.docs as MovieWithFilters[];
   } catch (error) {
     console.error('Произошла ошибка в getMovieWithFilters:', error);
     return null;
@@ -46,6 +46,7 @@ export async function getFieldValues(params: GetFieldValues = { field: "countrie
   try {
     const response = await instance.get("v1/movie/possible-values-by-field", {
       params,
+      timeout: 5000,
     });
     return response.data;
   } catch (error) {
