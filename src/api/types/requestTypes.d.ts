@@ -7,6 +7,7 @@ type GetMovieByNameProps = {
 type GetMovieWithFilters = {
   page?: number;
   limit?: number;
+  id?: string;
   selectFields?: (
     | "name"
     | "id"
@@ -14,6 +15,7 @@ type GetMovieWithFilters = {
     | "poster"
     | "countries"
     | "ageRating"
+    | "similarMovies"
   )[];
   year?: string[];
   poster?: string[];

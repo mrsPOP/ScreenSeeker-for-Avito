@@ -12,7 +12,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       year: params.getAll("year"),
       ageRating: params.getAll("ageRating"),
       "countries.name": params.getAll("countries.name"),
-    }),
+    }) as Promise<MovieWithFilters[]>,
     getCountries(),
   ]);
   return { movies, countries };

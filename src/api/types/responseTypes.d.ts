@@ -42,6 +42,17 @@ interface Movie {
   top250: number
   typeNumber: number
   status: string
+  persons: Person[]
+}
+
+interface Person {
+  id: number
+  photo: string
+  name: string
+  enName: string
+  description: string
+  profession: string
+  enProfession: string
 }
 
 interface Name {
@@ -58,11 +69,6 @@ interface ExternalId {
 
 interface Logo {
   url: string
-}
-
-interface Poster {
-  url: string
-  previewUrl: string
 }
 
 interface Backdrop {
@@ -104,4 +110,55 @@ interface ReleaseYear {
 interface FieldValue {
   name: string;
   slug: string;
+}
+
+interface Season {
+  movieId: number
+  number: number
+  episodesCount: number
+  episodes: Episode[]
+  poster: Poster
+  name: string
+}
+
+interface Episode {
+  number: number
+  name: string
+  enName: string
+  description: string
+  still: Still
+  airDate: string
+  enDescription: string
+}
+
+interface Still {
+  url: string
+  previewUrl: string
+}
+
+interface Poster {
+  url: string
+  previewUrl: string
+}
+
+interface Review {
+  movieId: number;
+  review: string;
+  author: string;
+}
+
+interface MoviePoster {
+  movieId: number;
+  url: string;
+}
+
+interface SimilarMovie {
+  id: number
+  name: string
+  enName: string
+  alternativeName: string
+  type: string
+  poster: Poster
+  year: number
+  rating: Rating
 }
