@@ -83,7 +83,7 @@ const MoviePage = () => {
           <NoInformation />
         )}
         <h3>Похожие фильмы</h3>
-        {movie?.similarMovies ? (
+        {movie?.similarMovies && movie.similarMovies.length > 0 ? (
           <CarouselSimilarMovies similarMovies={movie.similarMovies} />
         ) : (
           <NoInformation />
