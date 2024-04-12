@@ -8,7 +8,11 @@ const ActorsList = ({ persons }: { persons: Person[] }) => {
   return (
     <List
       dataSource={actors}
-      renderItem={(actor) => <List.Item>{`${actor.name} - ${actor.description}`}</List.Item>}
+      renderItem={(actor) => (
+        <List.Item>{`${actor.name} ${
+          actor.description ? "- " + actor.description : ""
+        }`}</List.Item>
+      )}
       pagination={{
         pageSize: 10,
         hideOnSinglePage: true,

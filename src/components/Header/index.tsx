@@ -17,7 +17,7 @@ const AppHeader = () => {
 
   const items = [
     {
-      label: "Вернуться на главную",
+      label: "Назад",
       key: "home",
       onClick: goBack,
     },

@@ -1,8 +1,4 @@
-import { Carousel } from "antd";
-import {
-  LoaderFunctionArgs,
-  useLoaderData
-} from "react-router-dom";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import {
   getMovieById,
   getPosters,
@@ -13,6 +9,7 @@ import {
 import ActorsList from "../../components/ActorsList";
 import CarouselSimilarMovies from "../../components/CarouselSimilarMovies";
 import Header from "../../components/Header";
+import MoviePostersCarousel from "../../components/MoviePoosters";
 import NoInformation from "../../components/NoInformation";
 import Rating from "../../components/Rating";
 import ReviewsList from "../../components/ReviewList";
@@ -62,54 +59,36 @@ const MoviePage = () => {
   return (
     <>
       <Header />
-      {movie?.posters && (
-        <Carousel autoplay>
-          {movie.posters.map((poster, index) => (
-            <div key={index}>
-              <img
-                src={poster.url}
-                alt={`Постер ${index + 1}`}
-                style={{
-                  inlineSize: "100%",
-                  maxInlineSize: "90%",
-                  maxBlockSize: "400px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          ))}
-        </Carousel>
-      )}
-
-      <h2>{movie?.name}</h2>
-      <p>{movie?.description}</p>
-      {movie?.rating && <Rating rating={movie.rating} />}
-
-      <h3>Актёры</h3>
-      {movie?.persons ? (
-        <ActorsList persons={movie.persons} />
-      ) : (
-        <NoInformation />
-      )}
-
-      <h3>Сезоны и эпизоды</h3>
-      {movie?.seasons && movie.type === "tv-series" ? (
-        <SeasonsAndEpisodes seasons={movie.seasons} />
-      ) : (
-        <NoInformation />
-      )}
-
-      <h3>Отзывы</h3>
-      {movie?.reviews ? (
-        <ReviewsList reviews={movie.reviews} />
-      ) : (
-        <NoInformation />
-      )}
-
-      <h3>Похожие фильмы</h3>
-      {movie?.similarMovies && (
-        <CarouselSimilarMovies similarMovies={movie.similarMovies} />
-      )}
+      <div style={{ paddingBlock: "20px", paddingInline: "30px" }}>
+        {movie?.posters && <MoviePostersCarousel posters={movie.posters} />}
+        <h2 style={{ textAlign: "center" }}>{movie?.name}</h2>
+        <p>{movie?.description}</p>
+        {movie?.rating && <Rating rating={movie.rating} />}
+        <h3>Актёры</h3>
+        {movie?.persons ? (
+          <ActorsList persons={movie.persons} />
+        ) : (
+          <NoInformation />
+        )}
+        <h3>Сезоны и эпизоды</h3>
+        {movie?.seasons && movie.type === "tv-series" ? (
+          <SeasonsAndEpisodes seasons={movie.seasons} />
+        ) : (
+          <NoInformation />
+        )}
+        <h3>Отзывы</h3>
+        {movie?.reviews ? (
+          <ReviewsList reviews={movie.reviews} />
+        ) : (
+          <NoInformation />
+        )}
+        <h3>Похожие фильмы</h3>
+        {movie?.similarMovies ? (
+          <CarouselSimilarMovies similarMovies={movie.similarMovies} />
+        ) : (
+          <NoInformation />
+        )}
+      </div>
     </>
   );
 };
