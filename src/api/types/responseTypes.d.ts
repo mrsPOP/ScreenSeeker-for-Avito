@@ -150,6 +150,8 @@ interface Review {
 interface MoviePoster {
   movieId: number;
   url: string;
+  width: number;
+  height: number;
 }
 
 interface SimilarMovie {

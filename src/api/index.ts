@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import { BASE_URL } from "./config";
+import { findMostCommonHeightPosters } from "./helpers";
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -41,11 +42,7 @@ export async function getSeasons(id: string): Promise<Season[] | null> {
 
 export async function getReviews(id: string): Promise<Review[] | null> {
   const params = {
-    selectFields: [
-      "movieId",
-      "review",
-      "author",
-    ],
+    selectFields: ["movieId", "review", "author"],
     movieId: id,
   };
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
@@ -60,16 +57,24 @@ export async function getReviews(id: string): Promise<Review[] | null> {
 
 export async function getPosters(id: string): Promise<MoviePoster[] | null> {
   const params = {
-    selectFields: [
-      "movieId",
-      "url",
-    ],
+    selectFields: ["movieId", "url", "width", "height"],
     movieId: id,
   };
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
   try {
     const response = await instance.get(`v1.4/image?${serializedParams}`);
-    return response.data.docs;
+    const verticalPosters = response.data.docs.filter(
+      (image: MoviePoster) => image.width < image.height
+    );
+    const horizontalPosters = response.data.docs.filter(
+      (image: MoviePoster) => image.width > image.height
+    );
+    const posters =
+      verticalPosters.length > horizontalPosters.length
+        ? verticalPosters
+        : horizontalPosters;
+    
+    return findMostCommonHeightPosters(posters);
   } catch (error) {
     console.error("Произошла ошибка в getPosters:", error);
     return null;
