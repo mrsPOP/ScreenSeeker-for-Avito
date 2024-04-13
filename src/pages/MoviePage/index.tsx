@@ -9,7 +9,7 @@ import {
 import ActorsList from "../../components/ActorsList";
 import CarouselSimilarMovies from "../../components/CarouselSimilarMovies";
 import Header from "../../components/Header";
-import MoviePostersCarousel from "../../components/MoviePoosters";
+import MoviePostersCarousel from "../../components/MoviePosters";
 import NoInformation from "../../components/NoInformation";
 import Rating from "../../components/Rating";
 import ReviewsList from "../../components/ReviewList";
@@ -56,14 +56,22 @@ export async function loader({
 
 const MoviePage = () => {
   const movie = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const allRatingsAreZero =
+    movie?.rating && Object.values(movie.rating).every((value) => value === 0);
+  console.log(movie?.reviews)
+
   return (
     <>
       <Header />
       <div style={{ paddingBlock: "20px", paddingInline: "30px" }}>
         {movie?.posters && <MoviePostersCarousel posters={movie.posters} />}
+
         <h2 style={{ textAlign: "center" }}>{movie?.name}</h2>
         <p>{movie?.description}</p>
-        {movie?.rating && <Rating rating={movie.rating} />}
+        {movie?.rating && allRatingsAreZero &&(
+          <Rating rating={movie.rating} />
+        )}
+
         <h3>Актёры</h3>
         {movie?.persons ? (
           <ActorsList persons={movie.persons} />
@@ -77,7 +85,7 @@ const MoviePage = () => {
           <NoInformation />
         )}
         <h3>Отзывы</h3>
-        {movie?.reviews ? (
+        {movie?.reviews?.length ? (
           <ReviewsList reviews={movie.reviews} />
         ) : (
           <NoInformation />

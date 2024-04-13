@@ -13,7 +13,7 @@ const Rating = ({ rating }: { rating: Rating | null }) => {
   return (
     <>
       {rating && (
-        <Descriptions title="Рейтинг фильма" bordered column={1}>
+        <Descriptions title="Рейтинг" bordered column={1}>
           {Object.entries(rating).map(([key, value]) => {
             if (value === 0 || key === 'await' || value === undefined) {
               return null;
