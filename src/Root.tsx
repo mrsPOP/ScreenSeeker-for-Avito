@@ -1,12 +1,13 @@
-import { Await, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import "./Root.css";
 import {
   getFieldValues as getCountries,
-  getMovieWithFilters,
   getMovieBySearch,
+  getMovieWithFilters,
 } from "./api";
 import Filter from "./components/Filter";
 import MovieList from "./components/MovieList";
+import { MoviesPagination } from "./components/Pagination";
 import SearchInput from "./components/Search";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -14,27 +15,38 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const countries = await getCountries();
   if (params.has("query")) {
     const search = params.get("query")!;
-    const foundMovies = await getMovieBySearch({ query: search });
-    return { movies: foundMovies, countries };
+    const { data, page, limit, total } = (await getMovieBySearch({
+      query: search,
+      page: Number(params.get("page")) || 1,
+      limit: Number(params.get("limit")) || 10,
+    })) as { data: MovieWithFilters[] } & PaginationInfo;
+    return { data, countries, page, limit, total };
   }
-  const movies = await getMovieWithFilters({
+  const { data, page, limit, total } = (await getMovieWithFilters({
     selectFields: ["id", "year", "name", "poster", "countries"],
     year: params.getAll("year"),
     ageRating: params.getAll("ageRating"),
     "countries.name": params.getAll("countries.name"),
-  }) as MovieWithFilters[];
-  return { movies, countries };
+    page: Number(params.get("page")) || 1,
+    limit: Number(params.get("limit")) || 10,
+  })) as { data: MovieWithFilters[] } & PaginationInfo;
+  return { data, page, limit, total, countries };
 }
 function Root() {
-  const { movies, countries } = useLoaderData() as Awaited<
-    ReturnType<typeof loader>
-  >;
+  const {
+    data: movies,
+    countries,
+    page,
+    limit,
+    total,
+  } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   return (
     <div className="root">
       <Filter countryOptions={countries} />
       <SearchInput />
       {movies ? <MovieList movies={movies} /> : <div>Фильмы не найдены</div>}
+      <MoviesPagination page={page} limit={limit} total={total} />
     </div>
   );
 }

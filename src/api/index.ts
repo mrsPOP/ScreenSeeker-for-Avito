@@ -83,12 +83,17 @@ export async function getPosters(id: string): Promise<MoviePoster[] | null> {
 
 export async function getMovieBySearch(
   params: GetMovieByNameProps
-): Promise<MovieWithFilters[] | null> {
+): Promise<({ data: MovieWithFilters[] } & PaginationInfo) | null> {
   try {
     const response = await instance.get("v1.4/movie/search", {
       params,
     });
-    return response.data.docs;
+    return {
+      data: response.data.docs,
+      page: response.data.page,
+      limit: response.data.limit,
+      total: response.data.total,
+    };
   } catch (error) {
     console.error("Произошла ошибка в getMovieBySearch:", error);
     return null;
@@ -103,7 +108,12 @@ export async function getMovieWithFilters(params?: GetMovieWithFilters) {
     if (response.data.docs[0].similarMovies) {
       return response.data.docs[0].similarMovies as SimilarMovie[];
     }
-    return response.data.docs as MovieWithFilters[];
+    return {
+      data: response.data.docs,
+      page: response.data.page,
+      limit: response.data.limit,
+      total: response.data.total,
+    } as { data: MovieWithFilters[] } & PaginationInfo;
   } catch (error) {
     console.error("Произошла ошибка в getMovieWithFilters:", error);
     return null;

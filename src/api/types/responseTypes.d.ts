@@ -6,10 +6,16 @@ interface MovieWithFilters {
     url: string;
     previewUrl: string;
   };
-  genres?: {
+  countries?: {
     name: string;
-  };
+  }[];
   ageRating?: string;
+};
+
+type PaginationInfo = {
+  page: number;
+  limit: number;
+  total: number;
 };
 
 interface Movie {
