@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { List, Button } from 'antd';
+import { maxLength } from './constants';
 
 const ReviewItem = ({ author, review }: Review) => {
-  const maxLength = 500;
   const [expanded, setExpanded] = useState(false);
 
   const renderContent = (text: string) => {
