@@ -73,7 +73,7 @@ export async function getPosters(id: string): Promise<MoviePoster[] | null> {
       verticalPosters.length > horizontalPosters.length
         ? verticalPosters
         : horizontalPosters;
-    
+
     return findMostCommonHeightPosters(posters);
   } catch (error) {
     console.error("Произошла ошибка в getPosters:", error);
@@ -83,7 +83,7 @@ export async function getPosters(id: string): Promise<MoviePoster[] | null> {
 
 export async function getMovieBySearch(
   params: GetMovieByNameProps
-): Promise<Movie[] | null> {
+): Promise<MovieWithFilters[] | null> {
   try {
     const response = await instance.get("v1.4/movie/search", {
       params,
@@ -99,6 +99,7 @@ export async function getMovieWithFilters(params?: GetMovieWithFilters) {
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
   try {
     const response = await instance.get(`v1.4/movie?${serializedParams}`);
+    if (response.data.docs.length === 0) return null;
     if (response.data.docs[0].similarMovies) {
       return response.data.docs[0].similarMovies as SimilarMovie[];
     }
@@ -115,7 +116,6 @@ export async function getFieldValues(
   try {
     const response = await instance.get("v1/movie/possible-values-by-field", {
       params,
-      timeout: 5000,
     });
     return response.data;
   } catch (error) {
