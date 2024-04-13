@@ -8,7 +8,7 @@ const SeasonsAndEpisodes = ({ seasons }: { seasons: Season[] }) => {
       renderItem={(season: Season) => (
         <>
           <List.Item>
-            <strong>Сезон {season.name}</strong>
+            <b>{season.name}</b>
           </List.Item>
           {season.episodes.map((episode) => (
             <List.Item key={episode.number}>
