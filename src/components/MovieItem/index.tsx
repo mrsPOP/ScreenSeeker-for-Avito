@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   id: string;
@@ -34,7 +34,13 @@ const MovieItem = (props: Props) => {
         maxBlockSize: "500px",
         blockSize: "100%",
       }}
-      cover={<img alt="постер" src={props?.poster?.previewUrl} />}
+      cover={
+        <img
+          alt="постер"
+          src={props?.poster?.previewUrl || 'https://st.kp.yandex.net/images/no-poster.gif'}
+          style={{ aspectRatio: "240 / 327", objectFit: "cover", objectPosition: "top" }}
+        />
+      }
     >
       <Card.Meta
         title={props.name}
