@@ -52,7 +52,7 @@ const Filter = ({
       <Form
         form={form}
         onFinish={onFormSubmit}
-        style={{ inlineSize: "100%", paddingInline: "20px" }}
+        style={{ inlineSize: "100%" }}
       >
         <Row gutter={[16, 16]} style={{ marginInline: 0 }}>
           <Col xs={24} sm={12} md={8} lg={6} style={{ inlineSize: "100%" }}>
@@ -66,6 +66,7 @@ const Filter = ({
               </Select>
             </Form.Item>
           </Col>
+
           <Col xs={24} sm={12} md={8} lg={6} style={{ inlineSize: "100%" }}>
             <Form.Item name="year" label="Год">
               <Select mode="multiple" placeholder="2024">
@@ -77,6 +78,7 @@ const Filter = ({
               </Select>
             </Form.Item>
           </Col>
+
           <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item name="ageRating" label="Возрастной рейтинг">
               <Select
@@ -92,6 +94,7 @@ const Filter = ({
               </Select>
             </Form.Item>
           </Col>
+
           <Col xs={24} sm={24} md={24} lg={6} className="align-right-at-md">
             <Form.Item>
               <Button type="primary" htmlType="submit">

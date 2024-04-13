@@ -1,0 +1,11 @@
+.search-input-container {
+  text-align: center;
+  padding-block-start: 2rem;
+  padding-block-end: 3rem;
+  inline-size: 100%;
+}
+
+.search-input {
+  max-inline-size: 1000px;
+  font-size: 1rem;
+}
