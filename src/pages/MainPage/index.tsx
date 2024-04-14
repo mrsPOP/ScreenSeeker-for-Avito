@@ -1,14 +1,14 @@
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
-import "./Root.css";
+import "./style.css";
 import {
   getFieldValues as getCountries,
   getMovieBySearch,
   getMovieWithFilters,
-} from "./api";
-import Filter from "./components/Filter";
-import MovieList from "./components/MovieList";
-import { MoviesPagination } from "./components/Pagination";
-import SearchInput from "./components/Search";
+} from "../../api";
+import Filter from "../../components/Filter";
+import MovieList from "../../components/MovieList";
+import { MoviesPagination } from "../../components/Pagination";
+import SearchInput from "../../components/Search";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const params = new URL(request.url).searchParams;
@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   })) as { data: MovieWithFilters[] } & PaginationInfo;
   return { data, page, limit, total, countries };
 }
-function Root() {
+function MainPage() {
   const {
     data: movies,
     countries,
@@ -51,4 +51,4 @@ function Root() {
   );
 }
 
-export default Root;
+export default MainPage;

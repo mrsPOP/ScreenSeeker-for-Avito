@@ -1,7 +1,6 @@
 import { Button, Col, Form, Row, Select } from "antd";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { countriesMock } from "../../mocks/countries";
 import { ageRatingValues } from "./constants";
 import { generateYearValues } from "./helpers";
 import "./styles.css";
@@ -18,12 +17,11 @@ const Filter = ({
 }: {
   countryOptions: FieldValue[] | null;
 }) => {
-  countryOptions = countryOptions || countriesMock;
-
   let [searchParams, setSearchParams] = useSearchParams();
 
   const [form] = Form.useForm();
   const [yearsOptions] = useState<SelectValues[]>(() => generateYearValues(30));
+
 
   const onFormSubmit = () => {
     const values = form.getFieldsValue(true);
@@ -43,7 +41,6 @@ const Filter = ({
 
   const resetForm = () => {
     form.resetFields();
-    setSearchParams({});
   };
 
   return (
@@ -58,7 +55,7 @@ const Filter = ({
           <Col xs={24} sm={12} md={8} lg={6} style={{ inlineSize: "100%" }}>
             <Form.Item name="countries.name" label="Страна">
               <Select mode="multiple" placeholder="Россия">
-                {countryOptions.map((option) => (
+                {countryOptions && countryOptions.map((option) => (
                   <Option key={option.slug} value={option.name} title="">
                     {option.name}
                   </Option>

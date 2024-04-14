@@ -1,9 +1,7 @@
 import { List } from "antd";
 import MovieItem from "../MovieItem";
-import { moviesMock } from "../../mocks/movies";
 
-const MovieList = ({ movies }: { movies: MovieWithFilters[] | null }) => {
-  const moviesList = movies || moviesMock;
+const MovieList = ({ movies }: { movies: MovieWithFilters[] }) => {
   return (
     <List
       grid={{
@@ -15,7 +13,7 @@ const MovieList = ({ movies }: { movies: MovieWithFilters[] | null }) => {
         xl: 4,
         xxl: 6,
       }}
-      dataSource={moviesList}
+      dataSource={movies}
       renderItem={(movie) => (
         <List.Item
           style={{
