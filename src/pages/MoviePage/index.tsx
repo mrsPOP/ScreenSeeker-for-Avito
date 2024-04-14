@@ -68,7 +68,6 @@ const MoviePage = () => {
 
   return (
     <>
-      <Header />
       <div style={{ paddingBlock: "20px", paddingInline: "30px" }}>
         <Button
           type="primary"
