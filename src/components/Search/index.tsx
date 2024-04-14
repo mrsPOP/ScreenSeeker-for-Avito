@@ -1,24 +1,11 @@
-import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { Input } from "antd";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { addRecentSearch, getRecentSearches } from "./helpers";
 import "./style.css";
 
 const { Search } = Input;
-
-const getRecentSearches = () => {
-  const searches = localStorage.getItem("recentSearches");
-  return searches ? JSON.parse(searches) : [];
-};
-
-const addRecentSearch = (searchValue: string) => {
-  let searches = getRecentSearches();
-  searches = [
-    searchValue,
-    ...searches.filter((value: string) => value !== searchValue),
-  ].slice(0, 20);
-  localStorage.setItem("recentSearches", JSON.stringify(searches));
-};
 
 const SearchInput = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -47,7 +34,7 @@ const SearchInput = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearchValue(value.trim());
+    setSearchValue(value);
   };
 
   return (
@@ -76,7 +63,6 @@ const SearchInput = () => {
             <li
               key={index}
               onClick={() => {
-                console.log(suggestion);
                 setSearchValue(suggestion);
                 handleSearch(suggestion);
               }}

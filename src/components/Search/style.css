@@ -21,6 +21,9 @@
 }
 
 .search-suggestions {
+  max-block-size: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
   background: rgba(255, 255, 255, 0.9);
   z-index: 1;
   max-inline-size: 1000px;
