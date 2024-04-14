@@ -1,21 +1,52 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import { useState } from "react";
-import "./style.css";
-import { getMovieBySearch } from "../../api";
+import { SearchOutlined } from "@ant-design/icons";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import "./style.css";
 
 const { Search } = Input;
 
+const getRecentSearches = () => {
+  const searches = localStorage.getItem("recentSearches");
+  return searches ? JSON.parse(searches) : [];
+};
+
+const addRecentSearch = (searchValue: string) => {
+  let searches = getRecentSearches();
+  searches = [
+    searchValue,
+    ...searches.filter((value: string) => value !== searchValue),
+  ].slice(0, 20);
+  localStorage.setItem("recentSearches", JSON.stringify(searches));
+};
+
 const SearchInput = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
   let [_, setSearchParams] = useSearchParams();
 
-  const handleSearch = () => {
+  const handleSearch = (value: string) => {
+    // if (value !== "") {
+    addRecentSearch(value);
     const newSearchParams = new URLSearchParams();
-    newSearchParams.set("query", searchValue);
+    newSearchParams.set("query", value);
     setSearchParams(newSearchParams);
-    console.log("Поиск запущен для:", searchValue);
+    setIsSuggestionsVisible(false);
+    // }
+  };
+
+  useEffect(() => {
+    setSuggestions(
+      getRecentSearches().filter((search: string) =>
+        search.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  }, [searchValue]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchValue(value);
   };
 
   return (
@@ -25,11 +56,35 @@ const SearchInput = () => {
         placeholder="Название фильма"
         prefix={<SearchOutlined />}
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={handleChange}
         onSearch={handleSearch}
         enterButton="Искать"
         className="search-input"
+        onFocus={() => setIsSuggestionsVisible(true)}
+        onBlur={() => setTimeout(() => setIsSuggestionsVisible(false), 0)}
       />
+      {suggestions.length > 0 && (
+        <ul
+          className={
+            isSuggestionsVisible
+              ? "search-suggestions"
+              : "search-suggestions-hidden"
+          }
+        >
+          {suggestions.map((suggestion, index) => (
+            <li
+              key={index}
+              onClick={() => {
+                console.log(suggestion);
+                setSearchValue(suggestion);
+                handleSearch(suggestion);
+              }}
+            >
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
