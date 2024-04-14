@@ -1,7 +1,9 @@
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Grid, Layout, Menu } from "antd";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthorizationContext } from "../AuthorizationProvider";
+import { UserOutlined } from "@ant-design/icons";
 
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
@@ -9,6 +11,8 @@ const { Header } = Layout;
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
   const screens = useBreakpoint();
+  const { isAuthorized, setIsAuthorized } = useContext(AuthorizationContext);
+  const navigate = useNavigate();
 
   const items = [
     {
@@ -20,10 +24,13 @@ const AppHeader = () => {
       key: "home",
     },
     {
-      label: "Войти",
+      label: <UserOutlined />,
       key: "login",
       style: { marginLeft: "auto" },
-      onClick: () => {},
+      onClick: () => {
+        setIsAuthorized((prev) => !prev);
+        navigate("/auth");
+      },
     },
   ];
 
