@@ -3,9 +3,11 @@ import qs from "qs";
 import { BASE_URL } from "./config";
 import { findMostCommonHeightPosters } from "./helpers";
 
+if (!process.env.TOKEN) throw new Error("token undefined")
+
 const instance = axios.create({
   baseURL: BASE_URL,
-  headers: { "X-API-KEY": process.env.REACT_APP_TOKEN },
+  headers: { "X-API-KEY": process.env.TOKEN },
 });
 
 export async function getMovieById(id: string): Promise<Movie | null> {
