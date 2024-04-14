@@ -26,6 +26,7 @@ export function MoviesPagination({ page, limit, total }: PaginationInfo) {
       onChange={handlePageChange}
       onShowSizeChange={handleSizeChange}
       showSizeChanger
+      hideOnSinglePage
     />
   );
 }
