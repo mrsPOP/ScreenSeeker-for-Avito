@@ -3,10 +3,14 @@
 ## Запуск проекта
 
 Установка зависимостей: 
-``` npm install```
+``` 
+npm install
+```
 
 Запуск проекта: 
-```npm run start --TOKEN=<ваш токен>```
+```
+npm run start --TOKEN=<ваш токен>
+```
 
 ## Docker
 ```
