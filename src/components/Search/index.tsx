@@ -27,13 +27,14 @@ const SearchInput = () => {
   let [_, setSearchParams] = useSearchParams();
 
   const handleSearch = (value: string) => {
-    // if (value !== "") {
-    addRecentSearch(value);
-    const newSearchParams = new URLSearchParams();
-    newSearchParams.set("query", value);
-    setSearchParams(newSearchParams);
-    setIsSuggestionsVisible(false);
-    // }
+    const valueWithNoSpaces = value.trim();
+    if (value !== "" && valueWithNoSpaces !== '') {
+      addRecentSearch(valueWithNoSpaces);
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set("query", value);
+      setSearchParams(newSearchParams);
+      setIsSuggestionsVisible(false);
+    }
   };
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const SearchInput = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearchValue(value);
+    setSearchValue(value.trim());
   };
 
   return (
