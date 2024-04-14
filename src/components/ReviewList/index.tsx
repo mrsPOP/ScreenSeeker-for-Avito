@@ -35,7 +35,7 @@ const ReviewsList = ({ reviews }: { reviews: Review[] }) => {
       dataSource={reviews}
       renderItem={(review) => <ReviewItem {...review} key={review.movieId} />}
       pagination={{
-        pageSize: 2,
+        pageSize: 3,
         hideOnSinglePage: true,
         align: 'start',
       }}

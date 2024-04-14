@@ -16,6 +16,7 @@ const ActorsList = ({ persons }: { persons: Person[] }) => {
       pagination={{
         pageSize: 10,
         hideOnSinglePage: true,
+        align: "start",
       }}
     />
   );

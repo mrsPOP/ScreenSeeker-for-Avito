@@ -1,4 +1,10 @@
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 import {
   getMovieById,
   getPosters,
@@ -58,19 +64,28 @@ const MoviePage = () => {
   const movie = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const allRatingsAreZero =
     movie?.rating && Object.values(movie.rating).every((value) => value === 0);
-  console.log(movie?.reviews)
+  const navigate = useNavigate();
 
   return (
     <>
       <Header />
       <div style={{ paddingBlock: "20px", paddingInline: "30px" }}>
+        <Button
+          type="primary"
+          icon={<ArrowLeftOutlined />}
+          onClick={() => navigate(-1)}
+          style={{
+            marginBottom: "20px",
+          }}
+        >
+          Назад
+        </Button>
+
         {movie?.posters && <MoviePostersCarousel posters={movie.posters} />}
 
         <h2 style={{ textAlign: "center" }}>{movie?.name}</h2>
         <p>{movie?.description}</p>
-        {movie?.rating && allRatingsAreZero &&(
-          <Rating rating={movie.rating} />
-        )}
+        {movie?.rating && allRatingsAreZero && <Rating rating={movie.rating} />}
 
         <h3>Актёры</h3>
         {movie?.persons ? (

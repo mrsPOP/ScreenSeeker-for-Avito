@@ -23,6 +23,7 @@ const MovieItem = (props: Props) => {
 
   const handleClick = () => {
     props.id && navigate(`/movie/${props.id}`);
+    window.scrollTo(0, 0);
   };
   return (
     <Card
@@ -37,8 +38,15 @@ const MovieItem = (props: Props) => {
       cover={
         <img
           alt="постер"
-          src={props?.poster?.previewUrl || 'https://st.kp.yandex.net/images/no-poster.gif'}
-          style={{ aspectRatio: "240 / 327", objectFit: "cover", objectPosition: "top" }}
+          src={
+            props?.poster?.previewUrl ||
+            "https://st.kp.yandex.net/images/no-poster.gif"
+          }
+          style={{
+            aspectRatio: "240 / 327",
+            objectFit: "cover",
+            objectPosition: "top",
+          }}
         />
       }
     >

@@ -45,6 +45,9 @@ const CarouselSimilarMovies = ({
           <div
             style={{
               cursor: "pointer",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              textOverflow: "clip",
             }}
           >
             <img

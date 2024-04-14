@@ -1,7 +1,7 @@
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Grid, Layout, Menu } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
@@ -9,17 +9,15 @@ const { Header } = Layout;
 const AppHeader = () => {
   const [visible, setVisible] = useState(false);
   const screens = useBreakpoint();
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
 
   const items = [
     {
-      label: "Назад",
+      label: (
+        <Link to="/" style={{ color: "rgba(255, 255, 255, 0.65)" }}>
+          Главная
+        </Link>
+      ),
       key: "home",
-      onClick: goBack,
     },
     {
       label: "Войти",
@@ -39,7 +37,6 @@ const AppHeader = () => {
         <Menu theme="dark" mode="horizontal" items={items} />
       ) : (
         <Button
-          className="menu-button"
           type="primary"
           icon={<MenuOutlined />}
           onClick={() => setVisible(true)}

@@ -28,6 +28,7 @@ export async function getSeasons(id: string): Promise<Season[] | null> {
       "name",
       "number",
     ],
+    limit: 100,
     movieId: id,
   };
   const serializedParams = qs.stringify(params, { arrayFormat: "repeat" });
