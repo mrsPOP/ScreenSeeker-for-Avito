@@ -9,7 +9,7 @@ npm install
 
 Запуск проекта: 
 ```
-npm run start --TOKEN=<ваш токен>
+TOKEN=<ваш токен> npm run start
 ```
 
 ## Docker
