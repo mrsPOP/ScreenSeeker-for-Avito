@@ -3,7 +3,6 @@ import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Drawer, Grid, Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthorizationContext } from "../AuthorizationProvider";
-import "./style.css";
 
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
