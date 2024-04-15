@@ -14,7 +14,12 @@ const Authorized = () => {
         showIcon
         style={{ marginBlockStart: "150px", marginBlockEnd: "24px" }}
       />
-      <Button type="primary" onClick={() => setIsAuthorized((prev) => !prev)}>
+      <Button
+        type="primary"
+        onClick={() => {
+          setIsAuthorized(false);
+        }}
+      >
         Выйти
       </Button>
     </div>

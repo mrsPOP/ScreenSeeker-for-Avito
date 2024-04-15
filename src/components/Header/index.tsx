@@ -1,65 +1,52 @@
-import { MenuOutlined } from "@ant-design/icons";
+import { useState, useContext } from "react";
+import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Drawer, Grid, Layout, Menu } from "antd";
-import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthorizationContext } from "../AuthorizationProvider";
-import { UserOutlined } from "@ant-design/icons";
+import "./style.css";
 
 const { useBreakpoint } = Grid;
 const { Header } = Layout;
 
-const AppHeader = () => {
+export default function AppHeader() {
   const [visible, setVisible] = useState(false);
   const screens = useBreakpoint();
-  const { isAuthorized, setIsAuthorized } = useContext(AuthorizationContext);
   const navigate = useNavigate();
+  const { isAuthorized } = useContext(AuthorizationContext);
 
-  const items = [
+  const menuItems = [
     {
-      label: (
-        <Link to="/" style={{ color: "rgba(255, 255, 255, 0.65)" }}>
-          Главная
-        </Link>
-      ),
-      key: "home",
+      key: 'home',
+      label: <Link to="/">Главная</Link>,
     },
+    ...(isAuthorized
+      ? [
+          {
+            key: 'random-movie',
+            label: <Link to="/random-movie">Помочь с выбором</Link>,
+          },
+        ]
+      : []),
     {
-      label: <UserOutlined />,
-      key: "login",
-      style: { marginLeft: "auto" },
+      key: 'auth',
+      icon: <UserOutlined />,
+      style: { marginLeft: 'auto' },
       onClick: () => {
-        setIsAuthorized((prev) => !prev);
         navigate("/auth");
       },
     },
   ];
 
-  const onClose = () => {
-    setVisible(false);
-  };
-
   return (
     <Header>
       {screens.sm ? (
-        <Menu theme="dark" mode="horizontal" items={items} />
+        <Menu theme="dark" mode="horizontal" items={menuItems} />
       ) : (
-        <Button
-          type="primary"
-          icon={<MenuOutlined />}
-          onClick={() => setVisible(true)}
-        />
+        <Button type="primary" icon={<MenuOutlined />} onClick={() => setVisible(true)} />
       )}
-      <Drawer
-        title="Меню"
-        placement="left"
-        onClick={onClose}
-        onClose={onClose}
-        open={visible}
-      >
-        <Menu theme="light" mode="vertical" items={items} />
+      <Drawer title="Меню" placement="left" onClose={() => setVisible(false)} open={visible}>
+        <Menu theme="light" mode="vertical" items={menuItems} />
       </Drawer>
     </Header>
   );
-};
-
-export default AppHeader;
+}
