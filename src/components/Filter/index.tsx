@@ -1,5 +1,5 @@
 import { Button, Col, Form, Row, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ageRatingValues } from "./constants";
 import { generateYearValues } from "./helpers";
@@ -22,6 +22,25 @@ const Filter = ({
   const [form] = Form.useForm();
   const [yearsOptions] = useState<SelectValues[]>(() => generateYearValues(30));
 
+  const formValues: { [key: string]: string[] } = {};
+
+  const setSearchParamsToForm = () => {
+    searchParams.forEach((value, key) => {
+      if (!formValues[key]) { 
+        formValues[key] = [];
+      }
+      
+      if (!formValues[key].includes(value)) {
+        formValues[key].push(value);
+      }
+    });
+  
+    form.setFieldsValue(formValues);
+  };
+
+  useEffect(() => {
+    setSearchParamsToForm();
+  }, []);
 
   const onFormSubmit = () => {
     const values = form.getFieldsValue(true);
@@ -46,20 +65,17 @@ const Filter = ({
   return (
     <>
       <h2>Фильтры поиска</h2>
-      <Form
-        form={form}
-        onFinish={onFormSubmit}
-        style={{ inlineSize: "100%" }}
-      >
+      <Form form={form} onFinish={onFormSubmit} style={{ inlineSize: "100%" }}>
         <Row gutter={[16, 16]} style={{ marginInline: 0 }}>
           <Col xs={24} sm={12} md={8} lg={6} style={{ inlineSize: "100%" }}>
             <Form.Item name="countries.name" label="Страна">
               <Select mode="multiple" placeholder="Россия">
-                {countryOptions && countryOptions.map((option) => (
-                  <Option key={option.slug} value={option.name} title="">
-                    {option.name}
-                  </Option>
-                ))}
+                {countryOptions &&
+                  countryOptions.map((option) => (
+                    <Option key={option.slug} value={option.name} title="">
+                      {option.name}
+                    </Option>
+                  ))}
               </Select>
             </Form.Item>
           </Col>
