@@ -2,8 +2,8 @@
 
 ## Технологии
 
-- React ^18.2 ^18.2
-- react-router-dom v6 v6
+- React ^18.2
+- react-router-dom v6
 - TypeScript
 - Webpack
 - axios
@@ -133,6 +133,8 @@ curl --request GET \
     ...,
   ]
 }
+
+```
 
 Получение фильма по id: 
 ```
