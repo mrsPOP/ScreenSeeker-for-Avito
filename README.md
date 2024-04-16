@@ -2,8 +2,8 @@
 
 ## Технологии
 
-- React ^18.2
-- react-router-dom v6
+- React ^18.2 ^18.2
+- react-router-dom v6 v6
 - TypeScript
 - Webpack
 - axios
@@ -31,6 +31,7 @@ TOKEN=<ваш токен> npm run start
 ```
 
 ## Развернуть Docker контейнер
+
 
 Сборка образа (из директории репозитория)
 
