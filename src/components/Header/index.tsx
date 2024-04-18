@@ -15,21 +15,21 @@ export default function AppHeader() {
 
   const menuItems = [
     {
-      key: 'home',
+      key: "home",
       label: <Link to="/">Главная</Link>,
     },
-    ...(isAuthorized
-      ? [
-          {
-            key: 'random-movie',
-            label: <Link to="/random-movie">Помочь с выбором</Link>,
-          },
-        ]
-      : []),
+    isAuthorized ? {
+      key: "random-movie",
+      label: (
+        <Link data-testid="helpButton" to="/random-movie">
+          Помочь с выбором
+        </Link>
+      ),
+    } : null,
     {
-      key: 'auth',
-      icon: <UserOutlined />,
-      style: { marginLeft: 'auto' },
+      key: "auth",
+      icon: <UserOutlined data-testid="AuthButton" />,
+      style: { marginLeft: "auto" },
       onClick: () => {
         navigate("/auth");
       },
@@ -41,9 +41,18 @@ export default function AppHeader() {
       {screens.sm ? (
         <Menu theme="dark" mode="horizontal" items={menuItems} />
       ) : (
-        <Button type="primary" icon={<MenuOutlined />} onClick={() => setVisible(true)} />
+        <Button
+          type="primary"
+          icon={<MenuOutlined />}
+          onClick={() => setVisible(true)}
+        />
       )}
-      <Drawer title="Меню" placement="left" onClose={() => setVisible(false)} open={visible}>
+      <Drawer
+        title="Меню"
+        placement="left"
+        onClose={() => setVisible(false)}
+        open={visible}
+      >
         <Menu theme="light" mode="vertical" items={menuItems} />
       </Drawer>
     </Header>

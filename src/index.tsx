@@ -16,11 +16,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AuthorizationProvider>
-        <Root />
-      </AuthorizationProvider>
-    ),
+    element: <Root />,
     children: [
       { index: true, element: <MainPage />, loader: loader },
       {
@@ -30,19 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: "auth",
-        element: (
-          <AuthorizationProvider>
-            <Authorization />
-          </AuthorizationProvider>
-        ),
+        element: <Authorization />,
       },
       {
         path: "random-movie",
-        element: (
-          <AuthorizationProvider>
-            <RandomMoviePage />
-          </AuthorizationProvider>
-        ),
+        element: <RandomMoviePage />,
       },
     ],
   },
@@ -50,6 +38,8 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthorizationProvider>
+      <RouterProvider router={router} />
+    </AuthorizationProvider>
   </React.StrictMode>
 );
