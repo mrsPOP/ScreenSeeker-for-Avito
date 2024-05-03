@@ -56,10 +56,12 @@ docker run -p 7070:7070 avito-app
 - Реализован поиск по названию фильма
 - Можно перейти на страницу фильма из выдачи
 
+
 - Возможность поделиться результатами выдачи с другими пользователями через копирование ссылки
 - Сохраняется история поиска
 - При вводе нового названия появляется suggest с предложениями из ранее введенных значений
 - При вводе значений происходит фильтрация подсказок по вхождению
+
 
 - A list of movies and TV shows is displayed
 - Pagination is implemented
@@ -67,6 +69,7 @@ docker run -p 7070:7070 avito-app
 - You can filter the output (by year, country, and age rating)
 - Movie title search is implemented
 - You can navigate to the movie page from the list
+
 
 - Ability to share search results with others by copying the URL
 - Search history is preserved
@@ -85,14 +88,18 @@ docker run -p 7070:7070 avito-app
 - отзывы пользователей (с пагинацией)
 - постеры, отображение которых реализовано в виде «карусели»
 
+
 - Реализован вывод списка фильмов, похожих на текущий, в виде «карусели». По каждому элементу можно кликнуть и открыть его страницу
 - В случае, если какой-то из списков пустой (список отзывов, актёров, сезонов), реализовано отображение заглушки на подобие «нет информации о ...»
 - Реализована кнопка «назад», которая ведет на выдачу. Фильтры и номер страницы при этом должны сохраняться.
 
+
 - Реализована авторизация
 - Страница с рандомным фильмом доступна только после авторизации
 
+
 The following movie or TV show information is displayed:
+
 
 - Movie/TV show title
 - Description
@@ -102,9 +109,11 @@ The following movie or TV show information is displayed:
 - User reviews (with pagination)
 - Posters displayed in a "carousel" format
 
+
 - A "carousel" display of a list of movies similar to the current one is implemented. You can click on each element to open its page
 - If any of the lists are empty (reviews, actors, seasons), a placeholder like "no information about ..." is displayed
 - A "back" button is implemented, which leads back to the search. Filters and page number should be preserved
+
 
 - Authentication is implemented
 - A page with a random movie is only available after authentication
@@ -116,14 +125,17 @@ The following movie or TV show information is displayed:
 - При переходах по ссылкам страница не перезагружается
 - Запуск проекта в режиме разработчика должен происходить по команде TOKEN=<your api token> npm run start ; проект должен быть доступен по ссылке http://localhost:7070
 
+
 - Используется TypeScript
 - Есть docker-файл для запуска
 - Реализация возможности выполнения трёх попыток повторного запроса, если запрос был неудачным
+
 
 - An adaptive interface is implemented
 - Routing is carried out using React Router v6
 - The page does not reload when navigating through links
 - The project is launched in developer mode with the command TOKEN=<your API token> npm run start; the project should be accessible via the link http://localhost:7070
+
 
 - TypeScript is used
 - There is a Docker file for launching
@@ -175,7 +187,7 @@ curl --request GET \
 
 ```
 
-Получение фильма по id | Getting a movie by id:
+Получение фильма по id | Getting movie by id:
 ```
 curl --request GET \
      --url https://api.kinopoisk.dev/v1.4/movie/26278 \
@@ -183,7 +195,7 @@ curl --request GET \
      --header 'accept: application/json'
 ```
 
-Поиск фильма по названию:
+Поиск фильма по названию | Getting movie by name:
 ```
 curl --request GET \
      --url 'https://api.kinopoisk.dev/v1.4/movie/search?page=1&limit=10&query=везение' \
